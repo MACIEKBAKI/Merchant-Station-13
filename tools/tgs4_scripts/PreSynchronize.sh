@@ -8,11 +8,15 @@ has_pip="$(command -v pip3)"
 set -e
 
 if ! { [ -x "$has_python" ] && [ -x "$has_pip" ] && [ -x "$has_git" ];  }; then
-    echo "Installing dependencies..."
+    echo "Installing apt dependencies..."
     if ! [ -x "$has_sudo" ]; then
-        dnf install -y python3-pip git
+        apt update
+        apt install -y python3 python3-pip git
+		rm -rf /var/lib/apt/lists/*
     else
-        sudo dnf install -y python3-pip git
+        sudo apt update
+        sudo apt install -y python3 python3-pip git
+		sudo rm -rf /var/lib/apt/lists/*
     fi
 fi
 
